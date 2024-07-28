@@ -6,3 +6,5 @@ export 'package:flutter/material.dart';
 export 'package:api_example/Model/ModelClass_Api.dart';
 export 'dart:convert';
 export 'package:shimmer/shimmer.dart';
+export 'package:lottie/lottie.dart';
+export 'package:api_example/Splash/Spash_screen.dart';
