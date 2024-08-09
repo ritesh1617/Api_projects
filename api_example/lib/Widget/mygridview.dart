@@ -29,7 +29,7 @@ class UserGridView extends StatelessWidget {
                 ),
                 Flexible(
                   child: Text(
-                    dataList[index].title, // Display user-entered title
+                    dataList[index].title,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 )
