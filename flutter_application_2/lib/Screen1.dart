@@ -1,42 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Screen2.dart';
-import 'package:get/get.dart';
-import 'package:get/get_common/get_reset.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Screen1 extends StatelessWidget {
-  Screen1({super.key});
+class ColorChangeScreen extends StatefulWidget {
+  @override
+  _ColorChangeScreenState createState() => _ColorChangeScreenState();
+}
 
-  final TextEditingController email = TextEditingController();
+class _ColorChangeScreenState extends State<ColorChangeScreen> {
+  Color _backgroundColor = Colors.white;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBackgroundColor();
+  }
+
+  // Load the saved background color from SharedPreferences
+  void _loadBackgroundColor() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? colorValue = prefs.getInt('backgroundColor');
+    if (colorValue != null) {
+      setState(() {
+        _backgroundColor = Color(colorValue);
+      });
+    }
+  }
+
+  // Save the selected background color to SharedPreferences
+  void _saveBackgroundColor(Color color) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('backgroundColor', color.value);
+  }
+
+  // Function to handle button press and change background color
+  void _changeColor(Color color) {
+    setState(() {
+      _backgroundColor = color;
+    });
+    _saveBackgroundColor(color);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Screen1"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: email,
-              autocorrect: true,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24))),
+      backgroundColor: _backgroundColor,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => _changeColor(Colors.blue),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              child: Text('Blue'),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                Get.to(Screen2(fristscreendata: email.text));
-              },
-              child: Text("Send Data")),
-        ],
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => _changeColor(Colors.green),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              child: Text('Green'),
+            ),
+          ],
+        ),
       ),
     );
   }
