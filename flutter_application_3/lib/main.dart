@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     home: MainApp(),
   ));
 }
