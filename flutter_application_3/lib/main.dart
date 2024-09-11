@@ -31,7 +31,7 @@ class _MainAppState extends State<MainApp> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.offAll(AddStudent());
+          Get.to(AddStudent());
         },
         child: Icon(Icons.add),
       ),
