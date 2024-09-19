@@ -1,0 +1,3 @@
+class Note {
+  int id;
+}
